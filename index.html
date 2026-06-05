@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -490,6 +491,27 @@ section { padding: 8rem 4rem; position: relative; }
 .form-group textarea { resize: vertical; min-height: 120px; }
 .form-group select option { background: var(--navy); color: var(--white); }
 
+/* Form Notifications */
+.form-msg {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  padding: 12px;
+  margin-bottom: 1rem;
+  display: none;
+  animation: fadeIn 0.3s forwards;
+  text-align: center;
+}
+.form-msg.error {
+  background: rgba(197,22,50,0.1);
+  color: #ff8a9a;
+  border: 1px solid rgba(197,22,50,0.3);
+}
+.form-msg.success {
+  background: rgba(74,222,128,0.1);
+  color: #4ade80;
+  border: 1px solid rgba(74,222,128,0.3);
+}
+
 /* ── FOOTER ─────────────────────────────────── */
 footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px solid rgba(197,204,214,0.1); }
 .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
@@ -897,6 +919,8 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
       <div class="service-title"><span data-en>Third Country Operations</span><span data-tr>Üçüncü Ülke Operasyonları</span></div>
       <p class="service-desc"><span data-en>Managing complex road freight logistics between two foreign nations entirely managed through our centralized command center.</span><span data-tr>Merkezi komuta ofisimiz üzerinden iki yabancı ülke arasında gerçekleştirilen karmaşık kara lojistiği yönetimi.</span></p>
     </div>
+    
+    <div class="service-card reveal" data-category="road" style="cursor: default;"></div>
 
   </div>
 </section>
@@ -1201,6 +1225,9 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
       <div class="glossary-term"><span class="glossary-abbr">DDP</span> <span data-en>Delivered Duty Paid</span><span data-tr>Gümrük Vergileri Ödenmiş Teslim</span></div>
       <p class="glossary-def"><span data-en>The seller assumes all transportation costs, customs duties and delivery responsibilities up to the final destination.</span><span data-tr>Satıcı nihai varış noktasına kadar tüm taşıma masraflarını, gümrük vergilerini ve teslimat sorumluluklarını üstlenir.</span></p>
     </div>
+    
+    <div class="glossary-item reveal" style="cursor: default;"></div>
+
   </div>
 </section>
 
@@ -1260,7 +1287,10 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
       <textarea id="fmessage" placeholder=" "></textarea>
       <label for="fmessage"><span data-en>Message / Cargo Details</span><span data-tr>Mesaj / Yük Detayları</span></label>
     </div>
-    <button class="btn-primary" style="width:100%;margin-top:1rem">
+    
+    <div id="main-form-msg" class="form-msg"></div>
+    
+    <button class="btn-primary" style="width:100%;margin-top:1rem" onclick="submitForm('main')">
       <span data-en>Send Inquiry →</span><span data-tr>Talep Gönder →</span>
     </button>
   </div>
@@ -1333,7 +1363,10 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
         </select>
         <label for="mservice"><span data-en>Service Type</span><span data-tr>Hizmet Türü</span></label>
       </div>
-      <button class="btn-primary" style="width:100%" onclick="closeModal()">
+      
+      <div id="modal-form-msg" class="form-msg"></div>
+      
+      <button class="btn-primary" style="width:100%" onclick="submitForm('modal')">
         <span data-en>Submit Request →</span><span data-tr>Talebi Gönder →</span>
       </button>
     </div>
@@ -1344,6 +1377,7 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
 <script>
 // ── LANGUAGE SYSTEM ──────────────────────────────────────────────
 function setLang(lang) {
+  document.documentElement.lang = lang;
   document.body.className = `lang-${lang}`;
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
@@ -1363,6 +1397,49 @@ function openModal() {
 }
 function closeModal() {
   document.getElementById('quoteModal').classList.remove('open');
+  document.getElementById('modal-form-msg').style.display = 'none';
+}
+
+// ── FORM VALIDATION & NOTIFICATION ───────────────────────────────
+function submitForm(type) {
+  const emailInput = document.getElementById(type === 'main' ? 'femail' : 'memail');
+  const msgDiv = document.getElementById(type === 'main' ? 'main-form-msg' : 'modal-form-msg');
+  const email = emailInput.value.trim();
+  const isTr = document.documentElement.lang === 'tr';
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    msgDiv.className = 'form-msg error';
+    msgDiv.innerHTML = isTr ? 'Lütfen geçerli bir e-posta adresi giriniz.' : 'Please enter a valid email address.';
+    msgDiv.style.display = 'block';
+    return;
+  }
+
+  // Success
+  msgDiv.className = 'form-msg success';
+  msgDiv.innerHTML = isTr ? 'Mesajınız başarıyla gönderildi.' : 'Your message has been sent successfully.';
+  msgDiv.style.display = 'block';
+
+  // Clear inputs
+  if(type === 'main') {
+    document.getElementById('fname').value = '';
+    document.getElementById('fcompany').value = '';
+    document.getElementById('femail').value = '';
+    document.getElementById('fservice').value = '';
+    document.getElementById('fmessage').value = '';
+  } else {
+    document.getElementById('mname').value = '';
+    document.getElementById('memail').value = '';
+    document.getElementById('mservice').value = '';
+  }
+
+  setTimeout(() => {
+    msgDiv.style.display = 'none';
+    if(type === 'modal') {
+      closeModal();
+    }
+  }, 4000);
 }
 
 // ── SERVICES TAB FILTER ──────────────────────────────────────────
@@ -1578,6 +1655,11 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   animate();
 
 })();
+
+// Initialize language setting on load to ensure document.documentElement.lang is correct natively
+setLang('en');
 </script>
 </body>
 </html>
+
+```
