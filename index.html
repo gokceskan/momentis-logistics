@@ -11,25 +11,32 @@
 :root {
   --navy: #07111F;
   --steel: #10233E;
-  --crimson: #C51632;
+  --crimson: #b01b34;
   --crimson-light: #E01A38;
-  --graphite: #050505;
-  --silver: #C5CCD6;
-  --white: #F5F7FA;
-  --mid-gray: #4A5568;
-  --dark-glass: rgba(7,17,31,0.82);
-  --card-bg: rgba(16,35,62,0.55);
-  --card-border: rgba(197,204,214,0.12);
+  --graphite: #FFFFFF;
+  --silver: #4A5568;
+  --white: #07111F;
+  --mid-gray: #6B7280;
+  --dark-glass: rgba(255,255,255,0.92);
+  --card-bg: rgba(255,255,255,0.85);
+  --card-border: rgba(7,17,31,0.12);
   --transition: cubic-bezier(0.16, 1, 0.3, 1);
+  --bg-light: #F8F9FB;
+  --text-primary: #07111F;
+  --text-secondary: #4A5568;
+  --surface-white: #FFFFFF;
+  --surface-light: #F1F3F6;
+  --border-light: rgba(7,17,31,0.1);
+  --border-medium: rgba(7,17,31,0.18);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; font-size: 16px; background: var(--graphite); }
+html { scroll-behavior: smooth; font-size: 16px; background: #FFFFFF; }
 
 body {
-  background: var(--graphite);
-  color: var(--white);
+  background: #FFFFFF;
+  color: var(--text-primary);
   font-family: 'Barlow', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -42,7 +49,7 @@ body.lang-tr [data-en] { display: none !important; }
 
 /* ── SCROLLBAR ─────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-track { background: #F1F3F6; }
 ::-webkit-scrollbar-thumb { background: var(--crimson); border-radius: 3px; }
 
 /* ── NAV ─────────────────────────────────── */
@@ -55,16 +62,17 @@ body.lang-tr [data-en] { display: none !important; }
   justify-content: space-between;
   padding: 0 4rem;
   height: 80px;
-  background: rgba(5,5,5,0);
+  background: rgba(255,255,255,0);
   transition: all 0.5s var(--transition);
   border-bottom: 1px solid transparent;
 }
 #nav.scrolled {
-  background: rgba(7,17,31,0.92);
+  background: rgba(255,255,255,0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(197,204,214,0.1);
+  border-bottom: 1px solid rgba(7,17,31,0.1);
   height: 70px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
 }
 .nav-logo {
   display: flex;
@@ -80,8 +88,10 @@ body.lang-tr [data-en] { display: none !important; }
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 0.06em;
-  color: var(--white);
+  color: #FFFFFF;
+  transition: color 0.4s var(--transition);
 }
+#nav.scrolled .nav-logo-text { color: var(--text-primary); }
 .nav-logo-text span { color: var(--crimson); }
 .nav-wrapper {
   display: flex;
@@ -100,11 +110,13 @@ body.lang-tr [data-en] { display: none !important; }
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--silver);
+  color: rgba(255,255,255,0.85);
   text-decoration: none;
   transition: color 0.3s;
   position: relative;
 }
+#nav.scrolled .nav-links a { color: var(--text-secondary); }
+#nav.scrolled .nav-links a:hover { color: var(--text-primary); }
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -115,7 +127,7 @@ body.lang-tr [data-en] { display: none !important; }
   transform-origin: right;
   transition: transform 0.4s var(--transition);
 }
-.nav-links a:hover { color: var(--white); }
+.nav-links a:hover { color: #FFFFFF; }
 .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
 .nav-cta {
   display: flex;
@@ -126,18 +138,26 @@ body.lang-tr [data-en] { display: none !important; }
   font-family: 'Space Mono', monospace;
   font-size: 0.75rem;
   padding: 6px 14px;
-  border: 1px solid rgba(197,204,214,0.3);
+  border: 1px solid rgba(255,255,255,0.4);
   background: transparent;
-  color: var(--silver);
+  color: rgba(255,255,255,0.85);
   cursor: pointer;
   border-radius: 2px;
   transition: all 0.3s;
   letter-spacing: 0.08em;
 }
+#nav.scrolled .btn-lang {
+  border-color: rgba(7,17,31,0.3);
+  color: var(--text-secondary);
+}
 .btn-lang:hover, .btn-lang.active {
   border-color: var(--crimson);
-  color: var(--white);
+  color: #FFFFFF;
   background: rgba(197,22,50,0.15);
+}
+#nav.scrolled .btn-lang:hover, #nav.scrolled .btn-lang.active {
+  color: var(--crimson);
+  background: rgba(197,22,50,0.08);
 }
 .btn-quote {
   font-family: 'Barlow Condensed', sans-serif;
@@ -147,14 +167,15 @@ body.lang-tr [data-en] { display: none !important; }
   text-transform: uppercase;
   padding: 12px 26px;
   background: var(--crimson);
-  color: var(--white);
+  color: #FFFFFF;
   border: none;
   cursor: pointer;
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
   transition: all 0.4s var(--transition);
 }
 .btn-quote:hover { background: var(--crimson-light); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(197,22,50,0.2); }
-.mobile-toggle { display: none; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; z-index: 1001; }
+.mobile-toggle { display: none; background: none; border: none; color: #FFFFFF; font-size: 2rem; cursor: pointer; z-index: 1001; }
+#nav.scrolled .mobile-toggle { color: var(--text-primary); }
 
 /* ── HERO ─────────────────────────────────── */
 #hero {
@@ -166,6 +187,7 @@ body.lang-tr [data-en] { display: none !important; }
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   overflow: hidden;
 }
 #globe-container {
@@ -216,6 +238,7 @@ body.lang-tr [data-en] { display: none !important; }
   line-height: 0.9;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+  color: #FFFFFF;
   opacity: 0;
   animation: fadeUp 0.9s 0.5s var(--transition) forwards;
 }
@@ -228,7 +251,7 @@ body.lang-tr [data-en] { display: none !important; }
   font-size: 1.15rem;
   font-weight: 300;
   line-height: 1.65;
-  color: var(--silver);
+  color: #C5CCD6;
   margin-top: 1.5rem;
   max-width: 580px;
   opacity: 0;
@@ -250,7 +273,7 @@ body.lang-tr [data-en] { display: none !important; }
   text-transform: uppercase;
   padding: 16px 36px;
   background: var(--crimson);
-  color: var(--white);
+  color: #FFFFFF;
   border: none;
   cursor: pointer;
   clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
@@ -270,7 +293,7 @@ body.lang-tr [data-en] { display: none !important; }
   text-transform: uppercase;
   padding: 16px 36px;
   background: transparent;
-  color: var(--white);
+  color: #FFFFFF;
   border: 1px solid rgba(197,204,214,0.35);
   cursor: pointer;
   clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
@@ -293,17 +316,17 @@ body.lang-tr [data-en] { display: none !important; }
 }
 .hero-stat {
   padding: 1.25rem 2rem;
-  background: rgba(16,35,62,0.4);
-  border: 1px solid rgba(197,204,214,0.15);
+  background: rgba(16,35,62,0.5);
+  border: 1px solid rgba(197,204,214,0.2);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
   transition: transform 0.4s var(--transition), background 0.4s;
 }
-.hero-stat:hover { transform: translateY(-5px); background: rgba(16,35,62,0.7); border-color: rgba(197,22,50,0.4); }
-.hero-stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; font-weight: 900; color: var(--white); line-height: 1; }
+.hero-stat:hover { transform: translateY(-5px); background: rgba(16,35,62,0.75); border-color: rgba(197,22,50,0.5); }
+.hero-stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; font-weight: 900; color: #FFFFFF; line-height: 1; }
 .hero-stat-num span { color: var(--crimson); }
-.hero-stat-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--silver); text-transform: uppercase; margin-top: 6px; }
+.hero-stat-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: #C5CCD6; text-transform: uppercase; margin-top: 6px; }
 .scroll-indicator {
   position: absolute;
   bottom: 2.5rem;
@@ -316,7 +339,7 @@ body.lang-tr [data-en] { display: none !important; }
   opacity: 0;
   animation: fadeIn 1s 1.5s forwards;
 }
-.scroll-indicator span { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--silver); text-transform: uppercase; writing-mode: vertical-rl; }
+.scroll-indicator span { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: #C5CCD6; text-transform: uppercase; writing-mode: vertical-rl; }
 .scroll-line { width: 1px; height: 80px; background: linear-gradient(to bottom, var(--crimson), transparent); animation: scrollPulse 2.5s infinite; }
 
 /* ── TICKER BAND ─────────────────────────────── */
@@ -326,10 +349,10 @@ body.lang-tr [data-en] { display: none !important; }
 .ticker-track { display: flex; gap: 0; animation: ticker 40s linear infinite; white-space: nowrap; width: max-content; }
 .ticker-item {
   font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--white); padding: 0 3rem; border-right: 1px solid rgba(255,255,255,0.3);
+  text-transform: uppercase; color: #FFFFFF; padding: 0 3rem; border-right: 1px solid rgba(255,255,255,0.3);
   display: flex; align-items: center; gap: 0.75rem;
 }
-.ticker-item::before { content: '◆'; font-size: 0.6rem; color: rgba(255,255,255,0.7); }
+.ticker-diamond { width:8px; height:8px; background:rgba(255,255,255,0.7); clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%); flex-shrink:0; }
 
 /* ── SECTIONS COMMON ─────────────────────────────── */
 section { padding: 8rem 4rem; position: relative; }
@@ -340,79 +363,83 @@ section { padding: 8rem 4rem; position: relative; }
 .section-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--crimson); }
 .section-title {
   font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 900;
-  text-transform: uppercase; line-height: 0.95; letter-spacing: -0.01em; color: var(--white);
+  text-transform: uppercase; line-height: 0.95; letter-spacing: -0.01em; color: var(--text-primary);
 }
 .section-title em { font-style: normal; color: var(--crimson); }
-.section-sub { font-size: 1.1rem; font-weight: 300; line-height: 1.7; color: var(--silver); max-width: 650px; margin-top: 1.5rem; }
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s var(--transition), transform 0.9s var(--transition); }
+.section-sub { font-size: 1.1rem; font-weight: 300; line-height: 1.7; color: var(--text-secondary); max-width: 650px; margin-top: 1.5rem; }
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s var(--transition), transform 0.9s var(--transition); will-change: transform, opacity; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* ── ABOUT ─────────────────────────────────── */
-#about { background: var(--navy); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
-.about-visual { position: relative; height: 500px; width: 100%; border-radius: 4px; overflow: hidden; background: #050505; border: 1px solid rgba(197,204,214,0.1); }
+#about { background: #FFFFFF; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.about-visual { position: relative; height: 500px; width: 100%; border-radius: 4px; overflow: hidden; background: #F8F9FB; border: 1px solid var(--border-light); }
 .about-diagram { width: 100%; height: 100%; }
 .about-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
 .about-card {
-  padding: 1.75rem; background: rgba(7,17,31,0.6); border: 1px solid var(--card-border);
+  padding: 1.75rem; background: #FFFFFF; border: 1px solid var(--border-light);
   border-left: 3px solid var(--crimson); transition: all 0.4s var(--transition);
 }
-.about-card:hover { background: rgba(16,35,62,0.8); transform: translateY(-3px); border-color: rgba(197,22,50,0.3); }
-.about-card-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; font-weight: 900; color: var(--white); line-height: 1; }
+.about-card:hover { background: #F8F9FB; transform: translateY(-3px); border-color: rgba(197,22,50,0.3); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.about-card-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; font-weight: 900; color: var(--text-primary); line-height: 1; }
 .about-card-num sup { font-size: 1.2rem; color: var(--crimson); }
-.about-card-text { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--silver); margin-top: 8px; }
+.about-card-text { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; }
 
 /* ── SERVICES ─────────────────────────────────── */
-#services { background: var(--graphite); padding-bottom: 6rem; }
+#services { background: var(--bg-light); padding-bottom: 6rem; }
 .services-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem; margin-bottom: 4rem; }
-.services-mode-tabs { display: flex; border: 1px solid rgba(197,204,214,0.2); background: rgba(7,17,31,0.5); }
+.services-mode-tabs { display: flex; border: 1px solid var(--border-medium); background: #FFFFFF; }
 .mode-tab {
   font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em;
-  text-transform: uppercase; padding: 14px 28px; background: transparent; color: var(--silver); border: none;
-  cursor: pointer; border-right: 1px solid rgba(197,204,214,0.2); transition: all 0.4s var(--transition);
+  text-transform: uppercase; padding: 14px 28px; background: transparent; color: var(--text-secondary); border: none;
+  cursor: pointer; border-right: 1px solid var(--border-light); transition: all 0.4s var(--transition);
   display: flex; align-items: center; gap: 10px;
 }
 .mode-tab:last-child { border-right: none; }
-.mode-tab.active { background: var(--crimson); color: var(--white); }
-.mode-tab:hover:not(.active) { background: rgba(197,204,214,0.05); color: var(--white); }
-.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(197,204,214,0.1); }
-.service-card { background: var(--navy); padding: 3rem 2.5rem; cursor: pointer; transition: all 0.5s var(--transition); position: relative; overflow: hidden; }
+.mode-tab.active { background: var(--crimson); color: #FFFFFF; }
+.mode-tab:hover:not(.active) { background: #F1F3F6; color: var(--text-primary); }
+.mode-tab svg { width:18px; height:18px; flex-shrink:0; }
+.mode-tab.active svg { color:#FFFFFF; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border-light); }
+.service-card { background: #FFFFFF; padding: 3rem 2.5rem; cursor: pointer; transition: all 0.5s var(--transition); position: relative; overflow: hidden; }
 .service-card::before {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--crimson);
   transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--transition);
 }
 .service-card:hover::before { transform: scaleX(1); }
-.service-card:hover { background: rgba(16,35,62,0.9); transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); z-index: 2; }
+.service-card:hover { background: #F8F9FB; transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); z-index: 2; }
 .service-icon {
-  width: 54px; height: 54px; background: rgba(197,22,50,0.1); border: 1px solid rgba(197,22,50,0.3);
-  display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; font-size: 1.6rem;
+  width: 54px; height: 54px; background: rgba(197,22,50,0.06); border: 1px solid rgba(197,22,50,0.2);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;
   transition: transform 0.4s var(--transition);
 }
-.service-card:hover .service-icon { transform: scale(1.1); background: rgba(197,22,50,0.2); }
+.service-icon svg { width:24px; height:24px; color:var(--crimson); }
+.service-card:hover .service-icon { transform: scale(1.1); background: rgba(197,22,50,0.12); }
 .service-mode-badge {
   display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--crimson); background: rgba(197,22,50,0.1); border: 1px solid rgba(197,22,50,0.25);
+  text-transform: uppercase; color: var(--crimson); background: rgba(197,22,50,0.06); border: 1px solid rgba(197,22,50,0.2);
   padding: 4px 10px; margin-bottom: 1rem;
 }
-.service-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1rem; color: var(--white); }
-.service-desc { font-size: 0.95rem; font-weight: 300; line-height: 1.7; color: var(--silver); margin-bottom: 1.5rem; min-height: 80px; }
+.service-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1rem; color: var(--text-primary); }
+.service-desc { font-size: 0.95rem; font-weight: 300; line-height: 1.7; color: var(--text-secondary); margin-bottom: 1.5rem; min-height: 80px; }
 
 /* ── WHY MOMENTIS ─────────────────────────────── */
-#why { background: linear-gradient(135deg, #07111F 0%, #050505 100%); position: relative; overflow: hidden; }
+#why { background: #FFFFFF; position: relative; overflow: hidden; border-top: 1px solid var(--border-light); }
 #why::before {
   content: ''; position: absolute; top: -150px; right: -150px; width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(197,22,50,0.08) 0%, transparent 70%); pointer-events: none;
+  background: radial-gradient(circle, rgba(197,22,50,0.04) 0%, transparent 70%); pointer-events: none;
 }
-.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(197,204,214,0.1); margin-top: 4rem; }
-.why-card { background: var(--navy); padding: 3rem 2.5rem; position: relative; overflow: hidden; transition: background 0.4s var(--transition); }
-.why-card:hover { background: rgba(16,35,62,0.95); }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-light); margin-top: 4rem; }
+.why-card { background: #FFFFFF; padding: 3rem 2.5rem; position: relative; overflow: hidden; transition: all 0.4s var(--transition); }
+.why-card:hover { background: #F8F9FB; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
 .why-num {
-  font-family: 'Barlow Condensed', sans-serif; font-size: 5rem; font-weight: 900; color: rgba(197,22,50,0.1);
+  font-family: 'Barlow Condensed', sans-serif; font-size: 5rem; font-weight: 900; color: rgba(197,22,50,0.08);
   line-height: 1; margin-bottom: 1rem; transition: color 0.4s var(--transition);
 }
-.why-card:hover .why-num { color: rgba(197,22,50,0.25); }
-.why-icon { font-size: 2rem; margin-bottom: 1.5rem; }
-.why-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--white); margin-bottom: 1rem; }
-.why-text { font-size: 0.95rem; font-weight: 300; line-height: 1.7; color: var(--silver); }
+.why-card:hover .why-num { color: rgba(197,22,50,0.18); }
+.why-icon { margin-bottom: 1.5rem; }
+.why-icon svg { width:32px; height:32px; color:var(--crimson); }
+.why-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-primary); margin-bottom: 1rem; }
+.why-text { font-size: 0.95rem; font-weight: 300; line-height: 1.7; color: var(--text-secondary); }
 .why-highlight {
   display: flex; align-items: center; gap: 8px; margin-top: 1.5rem; font-family: 'Space Mono', monospace;
   font-size: 0.7rem; letter-spacing: 0.1em; color: var(--crimson); text-transform: uppercase;
@@ -420,77 +447,76 @@ section { padding: 8rem 4rem; position: relative; }
 .why-highlight::before { content: ''; display: block; width: 20px; height: 1px; background: var(--crimson); }
 
 /* ── COMMAND CENTER ─────────────────────────────── */
-#technology { background: linear-gradient(180deg, #050505 0%, #07111F 100%); overflow: hidden; position: relative; border-top: 1px solid rgba(197,204,214,0.05); }
+#technology { background: #F8F9FB; overflow: hidden; position: relative; border-top: 1px solid var(--border-light); }
 .tech-dashboard { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; margin-top: 4rem; align-items: stretch; }
 .tech-panel {
-  background: rgba(7,17,31,0.7); border: 1px solid var(--card-border); padding: 2.5rem;
-  position: relative; overflow: hidden; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: #FFFFFF; border: 1px solid var(--border-light); padding: 2.5rem;
+  position: relative; overflow: hidden;
 }
-.tech-panel-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(197,204,214,0.1); }
+.tech-panel-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-light); }
 .tech-panel-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--crimson); animation: pulse 2s infinite; }
-.tech-panel-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--silver); }
+.tech-panel-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); }
 .tech-panel-title span { color: var(--crimson); font-weight: 700; }
-.tech-metric-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid rgba(197,204,214,0.05); }
+.tech-metric-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--border-light); }
 .tech-metric-row:last-child { border-bottom: none; padding-bottom: 0; }
-.tech-metric-label { font-size: 0.95rem; color: var(--silver); font-weight: 300; }
-.tech-metric-val { font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--white); }
-.tech-metric-val.green { color: #4ade80; text-shadow: 0 0 10px rgba(74,222,128,0.3); }
-.tech-metric-val.blue { color: #60a5fa; text-shadow: 0 0 10px rgba(96,165,250,0.3); }
+.tech-metric-label { font-size: 0.95rem; color: var(--text-secondary); font-weight: 300; }
+.tech-metric-val { font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text-primary); }
+.tech-metric-val.green { color: #16a34a; }
+.tech-metric-val.blue { color: #2563eb; }
 
-/* SVG Radar Map */
-.radar-map-container { position: relative; width: 100%; padding-top: 60%; background: #03080f; border: 1px solid rgba(96,165,250,0.2); overflow: hidden; border-radius: 4px; }
+.radar-map-container { position: relative; width: 100%; padding-top: 60%; background: #050505; border: 1px solid rgba(96,165,250,0.25); overflow: hidden; border-radius: 4px; }
 .radar-map-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 .radar-sweep { transform-origin: center; animation: radarSpin 4s linear infinite; }
 .radar-node { fill: #60a5fa; animation: pulseNode 2s infinite; }
 .radar-route { stroke: rgba(96,165,250,0.6); stroke-dasharray: 4 4; animation: dashMoveReverse 20s linear infinite; }
 .data-stream-overlay {
-  position: absolute; bottom: 1rem; left: 1rem; right: 1rem; background: rgba(5,5,5,0.85); border: 1px solid rgba(96,165,250,0.3);
+  position: absolute; bottom: 1rem; left: 1rem; right: 1rem; background: rgba(5,5,5,0.9); border: 1px solid rgba(96,165,250,0.3);
   padding: 10px; font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #60a5fa; height: 60px; overflow: hidden;
 }
 .data-stream-track { animation: dataScroll 10s linear infinite; display: flex; flex-direction: column; gap: 8px; }
 
 /* ── GLOSSARY ─────────────────────────────────── */
-#glossary { background: var(--graphite); }
-.glossary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(197,204,214,0.1); margin-top: 4rem; }
-.glossary-item { background: var(--navy); padding: 2rem; border-left: 3px solid transparent; transition: all 0.4s var(--transition); }
-.glossary-item:hover { background: rgba(16,35,62,0.9); border-left-color: var(--crimson); transform: translateX(5px); }
-.glossary-term { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.75rem; }
+#glossary { background: #FFFFFF; }
+.glossary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-light); margin-top: 4rem; }
+.glossary-item { background: #FFFFFF; padding: 2rem; border-left: 3px solid transparent; transition: all 0.4s var(--transition); }
+.glossary-item:hover { background: #F8F9FB; border-left-color: var(--crimson); transform: translateX(5px); }
+.glossary-term { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 0.04em; color: var(--text-primary); margin-bottom: 0.75rem; }
 .glossary-abbr { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--crimson); font-weight: 700; margin-right: 6px; }
-.glossary-def { font-size: 0.9rem; font-weight: 300; line-height: 1.6; color: var(--silver); }
+.glossary-def { font-size: 0.9rem; font-weight: 300; line-height: 1.6; color: var(--text-secondary); }
 
 /* ── CONTACT ─────────────────────────────────── */
-#contact { background: var(--navy); display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; align-items: start; }
+#contact { background: var(--bg-light); display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; align-items: start; }
 .contact-detail { display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 2.5rem; }
 .contact-icon {
-  width: 50px; height: 50px; background: rgba(197,22,50,0.1); border: 1px solid rgba(197,22,50,0.3);
-  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+  width: 50px; height: 50px; background: rgba(197,22,50,0.06); border: 1px solid rgba(197,22,50,0.2);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.contact-text strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--silver); margin-bottom: 6px; }
-.contact-text p, .contact-text a { font-size: 1rem; color: var(--white); text-decoration: none; font-weight: 400; line-height: 1.6; }
+.contact-icon svg { width:20px; height:20px; color:var(--crimson); }
+.contact-text strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 6px; }
+.contact-text p, .contact-text a { font-size: 1rem; color: var(--text-primary); text-decoration: none; font-weight: 400; line-height: 1.6; }
 .contact-text a:hover { color: var(--crimson); }
-.contact-form { background: rgba(7,17,31,0.6); border: 1px solid rgba(197,204,214,0.15); padding: 3rem; display: flex; flex-direction: column; gap: 1.5rem; }
+.contact-form { background: #FFFFFF; border: 1px solid var(--border-light); padding: 3rem; display: flex; flex-direction: column; gap: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .form-group { display: flex; flex-direction: column; gap: 8px; position: relative; }
 .form-group label {
   font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--silver); position: absolute; left: 16px; top: 18px; transition: all 0.3s var(--transition); pointer-events: none;
+  color: var(--text-secondary); position: absolute; left: 16px; top: 18px; transition: all 0.3s var(--transition); pointer-events: none;
 }
 .form-group input, .form-group select, .form-group textarea {
-  background: rgba(5,5,5,0.6); border: 1px solid rgba(197,204,214,0.2); color: var(--white);
+  background: #FFFFFF; border: 1px solid var(--border-medium); color: var(--text-primary);
   padding: 24px 16px 12px; font-family: 'Barlow', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.3s, background 0.3s;
   width: 100%; -webkit-appearance: none; border-radius: 0;
 }
 .form-group select { padding-top: 18px; padding-bottom: 18px; cursor: pointer; }
 .form-group select + label { top: -20px; font-size: 0.65rem; color: var(--crimson); position: relative; left: 0; margin-bottom: -1.5rem; display: block; }
-.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--crimson); background: rgba(7,17,31,0.9); }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--crimson); background: #FDFDFD; }
 .form-group input:focus + label, .form-group input:not(:placeholder-shown) + label,
 .form-group textarea:focus + label, .form-group textarea:not(:placeholder-shown) + label {
   top: 6px; font-size: 0.6rem; color: var(--crimson); font-weight: 700;
 }
 .form-group textarea { resize: vertical; min-height: 120px; }
-.form-group select option { background: var(--navy); color: var(--white); }
+.form-group select option { background: #FFFFFF; color: var(--text-primary); }
 
-/* Form Notifications */
 .form-msg {
   font-family: 'Space Mono', monospace;
   font-size: 0.75rem;
@@ -501,38 +527,44 @@ section { padding: 8rem 4rem; position: relative; }
   text-align: center;
 }
 .form-msg.error {
-  background: rgba(197,22,50,0.1);
-  color: #ff8a9a;
-  border: 1px solid rgba(197,22,50,0.3);
+  background: rgba(197,22,50,0.06);
+  color: #b01b34;
+  border: 1px solid rgba(197,22,50,0.25);
 }
 .form-msg.success {
-  background: rgba(74,222,128,0.1);
-  color: #4ade80;
-  border: 1px solid rgba(74,222,128,0.3);
+  background: rgba(22,163,74,0.06);
+  color: #16a34a;
+  border: 1px solid rgba(22,163,74,0.25);
 }
 
 /* ── FOOTER ─────────────────────────────────── */
-footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px solid rgba(197,204,214,0.1); }
+footer { background: #FFFFFF; padding: 5rem 4rem 2rem; border-top: 1px solid var(--border-light); }
 .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
-.footer-brand p { font-size: 0.95rem; font-weight: 300; color: var(--silver); line-height: 1.7; margin-top: 1.5rem; max-width: 320px; }
-.footer-logo-text { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: 0.06em; color: var(--white); }
+.footer-brand p { font-size: 0.95rem; font-weight: 300; color: var(--text-secondary); line-height: 1.7; margin-top: 1.5rem; max-width: 320px; }
+.footer-logo-text { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: 0.06em; color: var(--text-primary); }
 .footer-logo-text span { color: var(--crimson); }
-.footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); margin-bottom: 1.5rem; }
+.footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 1.5rem; }
 .footer-col ul { list-style: none; }
 .footer-col ul li { margin-bottom: 0.75rem; }
-.footer-col ul li a { font-size: 0.95rem; font-weight: 300; color: var(--silver); text-decoration: none; transition: color 0.3s; }
-.footer-col ul li a:hover { color: var(--white); }
-.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 2.5rem; border-top: 1px solid rgba(197,204,214,0.1); flex-wrap: wrap; gap: 1rem; }
+.footer-col ul li a { font-size: 0.95rem; font-weight: 300; color: var(--text-secondary); text-decoration: none; transition: color 0.3s; }
+.footer-col ul li a:hover { color: var(--text-primary); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 2.5rem; border-top: 1px solid var(--border-light); flex-wrap: wrap; gap: 1rem; }
 .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--mid-gray); }
 .footer-modes { display: flex; gap: 1.5rem; }
 .footer-mode { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid-gray); display: flex; align-items: center; gap: 6px; }
 .footer-mode span { color: var(--crimson); font-size: 0.85rem; }
 
 /* Modal */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(5,5,5,0.9); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(5,5,5,0.85); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .modal-overlay.open { display: flex; animation: fadeIn 0.3s forwards; }
-.modal-box { background: var(--navy); border: 1px solid rgba(197,204,214,0.2); padding: 3rem; max-width: 550px; width: 90%; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-.modal-close { position: absolute; top: 1rem; right: 1.5rem; background: none; border: none; color: var(--silver); font-size: 1.8rem; cursor: pointer; transition: color 0.3s; }
+.modal-box { background: #FFFFFF; border: 1px solid var(--border-light); padding: 3rem; max-width: 550px; width: 90%; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+.modal-box .section-label { color: var(--crimson); }
+.modal-box h3 { color: var(--text-primary); }
+.modal-box .form-group input, .modal-box .form-group select { background: #FFFFFF; border-color: var(--border-medium); color: var(--text-primary); }
+.modal-box .form-group label { color: var(--text-secondary); }
+.modal-box .form-group input:focus + label, .modal-box .form-group input:not(:placeholder-shown) + label,
+.modal-box .form-group select:focus + label, .modal-box .form-group select:not(:placeholder-shown) + label { color: var(--crimson); }
+.modal-close { position: absolute; top: 1rem; right: 1.5rem; background: none; border: none; color: var(--text-secondary); font-size: 1.8rem; cursor: pointer; transition: color 0.3s; }
 .modal-close:hover { color: var(--crimson); }
 
 /* ── ANIMATIONS ─────────────────────────────────── */
@@ -541,7 +573,6 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
 @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes scrollPulse { 0%,100% { transform: scaleY(1); opacity: 0.8; } 50% { transform: scaleY(0.4); opacity: 0.2; } }
 @keyframes pulse { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(197,22,50,0.6); } 50% { opacity: 0.6; box-shadow: 0 0 0 8px rgba(197,22,50,0); } }
-@keyframes dashMove { to { stroke-dashoffset: 0; } }
 @keyframes dashMoveReverse { to { stroke-dashoffset: -100; } }
 @keyframes radarSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes pulseNode { 0%,100% { r: 3; opacity: 1; } 50% { r: 6; opacity: 0.5; } }
@@ -565,34 +596,67 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
   .hero-content { max-width: 600px; }
   #globe-container { right: -30%; width: 100%; opacity: 0.8; }
   .footer-top { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+  .about-visual { height: 380px; }
 }
 
 @media (max-width: 768px) {
   .nav-links, .nav-cta { display: none; }
   .mobile-toggle { display: block; }
-  #nav.menu-open { background: var(--navy); height: 100vh; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: 2rem; }
+  #nav.menu-open { background: #FFFFFF; height: 100vh; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: 2rem; }
   #nav.menu-open .nav-wrapper { display: flex; flex-direction: column; width: 100%; gap: 2rem; margin-top: 3rem; }
   #nav.menu-open .nav-links { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; width: 100%; }
-  #nav.menu-open .nav-links a { font-size: 1.25rem; }
+  #nav.menu-open .nav-links a { font-size: 1.25rem; color: var(--text-primary); }
   #nav.menu-open .nav-cta { display: flex; flex-direction: column; width: 100%; align-items: stretch; gap: 1rem; }
-  #nav.menu-open .mobile-toggle { position: absolute; top: 1.5rem; right: 2rem; }
-  
-  .hero-h1 { font-size: 3.5rem; }
+  #nav.menu-open .mobile-toggle { position: absolute; top: 1.5rem; right: 2rem; color: var(--text-primary); }
+  #nav.menu-open .btn-lang { border-color: var(--border-medium); color: var(--text-secondary); }
+  #nav.menu-open .nav-logo-text { color: var(--text-primary); }
+
+  .hero-h1 { font-size: 3rem; }
+  .hero-content { max-width: 100%; }
+  .hero-stats { gap: 1rem; }
+  .hero-stat { padding: 1rem 1.5rem; }
+  .hero-stat-num { font-size: 2rem; }
   .services-grid, .why-grid, .glossary-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; gap: 1.5rem; }
   .services-header { flex-direction: column; align-items: flex-start; }
   .services-mode-tabs { width: 100%; }
   .mode-tab { flex: 1; justify-content: center; padding: 12px; font-size: 0.8rem; }
-  #globe-container { right: -50%; opacity: 0.6; }
+  #globe-container { right: -50%; opacity: 0.55; }
   .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  section { padding: 4rem 1.5rem; }
+  #hero { padding: 7rem 1.5rem 3rem; min-height: auto; }
+  #contact { padding: 4rem 1.5rem; }
+  footer { padding: 3rem 1.5rem 2rem; }
+  .scroll-indicator { right: 1.5rem; bottom: 1.5rem; }
+  .about-visual { height: 300px; }
+  .contact-form { padding: 2rem 1.5rem; }
+  .tech-panel { padding: 1.5rem; }
+  .modal-box { padding: 2rem 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-h1 { font-size: 2.4rem; }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 14px 24px; font-size: 0.9rem; }
+  .hero-stats { flex-direction: column; gap: 0.75rem; }
+  .section-title { font-size: 2.2rem; }
+  .service-card { padding: 2rem 1.5rem; }
+  .why-card { padding: 2rem 1.5rem; }
+  .glossary-item { padding: 1.5rem; }
+  #nav { padding: 0 1.25rem; height: 64px; }
+  #nav.scrolled { height: 56px; }
+  .nav-logo svg { height: 34px; }
+  #nav.scrolled .nav-logo svg { height: 30px; }
+  .nav-logo-text { font-size: 1.3rem; }
 }
 </style>
 </head>
 <body class="lang-en">
 
 <nav id="nav">
-  <a href="#" class="nav-logo">
+  <a href="#" class="nav-logo" aria-label="Momentis Logistics Home">
     <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
       <polygon points="4,4 22,4 40,22 22,40 4,40 22,22" fill="#07111F" stroke="#C51632" stroke-width="2"/>
       <polygon points="4,4 22,22 4,40" fill="#10233E"/>
@@ -601,9 +665,9 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
     </svg>
     <span class="nav-logo-text">MOMENTIS<span> LOGISTICS</span></span>
   </a>
-  
-  <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
-  
+
+  <button class="mobile-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+
   <div class="nav-wrapper">
     <ul class="nav-links">
       <li><a href="#about"><span data-en>About</span><span data-tr>Hakkımızda</span></a></li>
@@ -656,9 +720,9 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
       <div class="hero-stat-label" data-tr>Global Ortak</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">3<span>Modes</span></div>
-      <div class="hero-stat-label" data-en>Sea · Air · Road</div>
-      <div class="hero-stat-label" data-tr>Deniz · Hava · Kara</div>
+      <div class="hero-stat-num"><span>+27</span></div>
+      <div class="hero-stat-label" data-en>Years of Experience</div>
+      <div class="hero-stat-label" data-tr>Yıllık Deneyim</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num">24<span>/7</span></div>
@@ -674,34 +738,34 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
 
 <div class="ticker-band">
   <div class="ticker-track">
-    <div class="ticker-item"><span data-en>Momentis Sea Freight</span><span data-tr>Momentis Deniz Yolu</span></div>
-    <div class="ticker-item"><span data-en>Airport to Airport</span><span data-tr>Havalimanından Havalimanına</span></div>
-    <div class="ticker-item"><span data-en>FCL / LCL Shipments</span><span data-tr>FCL / LCL Taşımaları</span></div>
-    <div class="ticker-item"><span data-en>Door to Door</span><span data-tr>Kapıdan Kapıya</span></div>
-    <div class="ticker-item"><span data-en>Express Cargo</span><span data-tr>Ekspres Kargo</span></div>
-    <div class="ticker-item"><span data-en>FTL & LTL Europe</span><span data-tr>FTL & LTL Avrupa</span></div>
-    <div class="ticker-item"><span data-en>Cross Trade Operations</span><span data-tr>Üçüncü Ülke Operasyonları</span></div>
-    <div class="ticker-item"><span data-en>Precision in Every Move</span><span data-tr>Her Taşımada Hassasiyet</span></div>
-    <div class="ticker-item"><span data-en>Project Cargo</span><span data-tr>Proje Kargo</span></div>
-    <div class="ticker-item"><span data-en>Hand Carry Services</span><span data-tr>Hand Carry Hizmeti</span></div>
-    <div class="ticker-item"><span data-en>Perishable Cargo</span><span data-tr>Bozulabilir Kargo</span></div>
-    <div class="ticker-item"><span data-en>Momentis Air Freight</span><span data-tr>Momentis Hava Yolu</span></div>
-    <div class="ticker-item"><span data-en>Transit Shipments</span><span data-tr>Transit Taşımalar</span></div>
-    <div class="ticker-item"><span data-en>Minivan Express</span><span data-tr>Minivan Ekspres</span></div>
-    <div class="ticker-item"><span data-en>Momentis Sea Freight</span><span data-tr>Momentis Deniz Yolu</span></div>
-    <div class="ticker-item"><span data-en>Airport to Airport</span><span data-tr>Havalimanından Havalimanına</span></div>
-    <div class="ticker-item"><span data-en>FCL / LCL Shipments</span><span data-tr>FCL / LCL Taşımaları</span></div>
-    <div class="ticker-item"><span data-en>Door to Door</span><span data-tr>Kapıdan Kapıya</span></div>
-    <div class="ticker-item"><span data-en>Express Cargo</span><span data-tr>Ekspres Kargo</span></div>
-    <div class="ticker-item"><span data-en>FTL & LTL Europe</span><span data-tr>FTL & LTL Avrupa</span></div>
-    <div class="ticker-item"><span data-en>Cross Trade Operations</span><span data-tr>Üçüncü Ülke Operasyonları</span></div>
-    <div class="ticker-item"><span data-en>Precision in Every Move</span><span data-tr>Her Taşımada Hassasiyet</span></div>
-    <div class="ticker-item"><span data-en>Project Cargo</span><span data-tr>Proje Kargo</span></div>
-    <div class="ticker-item"><span data-en>Hand Carry Services</span><span data-tr>Hand Carry Hizmeti</span></div>
-    <div class="ticker-item"><span data-en>Perishable Cargo</span><span data-tr>Bozulabilir Kargo</span></div>
-    <div class="ticker-item"><span data-en>Momentis Air Freight</span><span data-tr>Momentis Hava Yolu</span></div>
-    <div class="ticker-item"><span data-en>Transit Shipments</span><span data-tr>Transit Taşımalar</span></div>
-    <div class="ticker-item"><span data-en>Minivan Express</span><span data-tr>Minivan Ekspres</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Momentis Sea Freight</span><span data-tr>Momentis Deniz Yolu</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Airport to Airport</span><span data-tr>Havalimanından Havalimanına</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>FCL / LCL Shipments</span><span data-tr>FCL / LCL Taşımaları</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Door to Door</span><span data-tr>Kapıdan Kapıya</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Express Cargo</span><span data-tr>Ekspres Kargo</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>FTL & LTL Europe</span><span data-tr>FTL & LTL Avrupa</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Cross Trade Operations</span><span data-tr>Üçüncü Ülke Operasyonları</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Precision in Every Move</span><span data-tr>Her Taşımada Hassasiyet</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Project Cargo</span><span data-tr>Proje Kargo</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Hand Carry Services</span><span data-tr>Hand Carry Hizmeti</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Perishable Cargo</span><span data-tr>Bozulabilir Kargo</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Momentis Air Freight</span><span data-tr>Momentis Hava Yolu</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Transit Shipments</span><span data-tr>Transit Taşımalar</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Minivan Express</span><span data-tr>Minivan Ekspres</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Momentis Sea Freight</span><span data-tr>Momentis Deniz Yolu</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Airport to Airport</span><span data-tr>Havalimanından Havalimanına</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>FCL / LCL Shipments</span><span data-tr>FCL / LCL Taşımaları</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Door to Door</span><span data-tr>Kapıdan Kapıya</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Express Cargo</span><span data-tr>Ekspres Kargo</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>FTL & LTL Europe</span><span data-tr>FTL & LTL Avrupa</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Cross Trade Operations</span><span data-tr>Üçüncü Ülke Operasyonları</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Precision in Every Move</span><span data-tr>Her Taşımada Hassasiyet</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Project Cargo</span><span data-tr>Proje Kargo</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Hand Carry Services</span><span data-tr>Hand Carry Hizmeti</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Perishable Cargo</span><span data-tr>Bozulabilir Kargo</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Momentis Air Freight</span><span data-tr>Momentis Hava Yolu</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Transit Shipments</span><span data-tr>Transit Taşımalar</span></div>
+    <div class="ticker-item"><span class="ticker-diamond"></span><span data-en>Minivan Express</span><span data-tr>Minivan Ekspres</span></div>
   </div>
 </div>
 
@@ -710,7 +774,7 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
     <svg class="about-diagram" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
       <defs>
         <pattern id="gridLarge" width="60" height="60" patternUnits="userSpaceOnUse">
-          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(197,204,214,0.04)" stroke-width="1"/>
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(7,17,31,0.06)" stroke-width="1"/>
         </pattern>
         <filter id="glowRed">
           <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
@@ -720,65 +784,82 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
           <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
           <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
+        <filter id="glowGold">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
       </defs>
       <rect width="100%" height="100%" fill="url(#gridLarge)"/>
-      
-      <path d="M 300 250 Q 400 100 520 150" fill="none" stroke="rgba(197,22,50,0.4)" stroke-width="1.5" stroke-dasharray="6 6" class="radar-route" />
-      <path d="M 300 250 Q 150 150 80 200" fill="none" stroke="rgba(96,165,250,0.4)" stroke-width="1.5" stroke-dasharray="6 6" class="radar-route" style="animation-duration: 15s" />
-      <path d="M 300 250 Q 200 400 350 450" fill="none" stroke="rgba(197,204,214,0.3)" stroke-width="1" stroke-dasharray="4 4" class="radar-route" style="animation-direction: reverse;" />
-      
-      <circle cx="300" cy="250" r="60" fill="rgba(197,22,50,0.05)" stroke="rgba(197,22,50,0.2)" stroke-width="1"/>
-      <circle cx="300" cy="250" r="30" fill="rgba(16,35,62,0.9)" stroke="#C51632" stroke-width="2" filter="url(#glowRed)"/>
-      <circle cx="300" cy="250" r="6" fill="#C51632">
-        <animate attributeName="r" values="6;10;6" dur="2s" repeatCount="indefinite"/>
+
+      <path d="M 300 240 Q 420 80 560 120" fill="none" stroke="rgba(197,22,50,0.5)" stroke-width="2" stroke-dasharray="8 6" class="radar-route" />
+      <path d="M 300 240 Q 180 80 60 140" fill="none" stroke="rgba(96,165,250,0.5)" stroke-width="2" stroke-dasharray="8 6" class="radar-route" style="animation-duration: 18s" />
+      <path d="M 300 240 Q 140 350 40 420" fill="none" stroke="rgba(74,222,128,0.5)" stroke-width="2" stroke-dasharray="8 6" class="radar-route" style="animation-duration: 22s" />
+      <path d="M 300 240 Q 480 350 560 400" fill="none" stroke="rgba(251,191,36,0.5)" stroke-width="2" stroke-dasharray="8 6" class="radar-route" style="animation-duration: 16s; animation-direction: reverse;" />
+      <path d="M 300 240 Q 380 420 300 470" fill="none" stroke="rgba(96,165,250,0.4)" stroke-width="1.5" stroke-dasharray="5 5" class="radar-route" style="animation-duration: 20s" />
+      <path d="M 300 240 Q 200 420 100 460" fill="none" stroke="rgba(197,22,50,0.35)" stroke-width="1.5" stroke-dasharray="5 5" class="radar-route" style="animation-duration: 24s" />
+
+      <circle cx="300" cy="240" r="70" fill="rgba(197,22,50,0.04)" stroke="rgba(197,22,50,0.15)" stroke-width="1"/>
+      <circle cx="300" cy="240" r="35" fill="rgba(16,35,62,0.95)" stroke="#C51632" stroke-width="2.5" filter="url(#glowRed)"/>
+      <circle cx="300" cy="240" r="8" fill="#C51632">
+        <animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite"/>
       </circle>
-      <text x="300" y="325" text-anchor="middle" fill="#C5CCD6" font-family="'Space Mono',monospace" font-size="10" letter-spacing="2">IZMIR HQ</text>
-      
-      <circle cx="520" cy="150" r="10" fill="#10233E" stroke="#60a5fa" stroke-width="1.5" filter="url(#glowBlue)"/>
-      <text x="520" y="130" text-anchor="middle" fill="#C5CCD6" font-family="'Space Mono',monospace" font-size="9" letter-spacing="1">ASIA</text>
-      
-      <circle cx="80" cy="200" r="10" fill="#10233E" stroke="#60a5fa" stroke-width="1.5" filter="url(#glowBlue)"/>
-      <text x="80" y="180" text-anchor="middle" fill="#C5CCD6" font-family="'Space Mono',monospace" font-size="9" letter-spacing="1">EUROPE</text>
+      <text x="300" y="330" text-anchor="middle" fill="#07111F" font-family="'Space Mono',monospace" font-size="11" font-weight="700" letter-spacing="3">TÜRKİYE</text>
+      <text x="300" y="346" text-anchor="middle" fill="#4A5568" font-family="'Space Mono',monospace" font-size="9" letter-spacing="1">GLOBAL HUB</text>
 
-      <circle cx="350" cy="450" r="10" fill="#10233E" stroke="#C5CCD6" stroke-width="1.5"/>
-      <text x="350" y="475" text-anchor="middle" fill="#C5CCD6" font-family="'Space Mono',monospace" font-size="9" letter-spacing="1">MENA</text>
+      <circle cx="560" cy="120" r="12" fill="#FFFFFF" stroke="#60a5fa" stroke-width="2" filter="url(#glowBlue)"/>
+      <text x="560" y="100" text-anchor="middle" fill="#07111F" font-family="'Space Mono',monospace" font-size="9" font-weight="600" letter-spacing="1">ASIA</text>
 
-      <circle cx="300" cy="250" r="120" fill="none" stroke="rgba(197,204,214,0.05)" stroke-width="1"/>
-      <circle cx="300" cy="250" r="180" fill="none" stroke="rgba(197,204,214,0.03)" stroke-width="1" stroke-dasharray="2 8"/>
-      
-      <circle cx="300" cy="250" r="30" fill="none" stroke="#C51632" stroke-width="1">
-        <animate attributeName="r" values="30;120" dur="3s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="1;0" dur="3s" repeatCount="indefinite"/>
+      <circle cx="60" cy="140" r="12" fill="#FFFFFF" stroke="#60a5fa" stroke-width="2" filter="url(#glowBlue)"/>
+      <text x="60" y="118" text-anchor="middle" fill="#07111F" font-family="'Space Mono',monospace" font-size="9" font-weight="600" letter-spacing="1">EUROPE</text>
+
+      <circle cx="40" cy="420" r="12" fill="#FFFFFF" stroke="#4ade80" stroke-width="2" filter="url(#glowGold)"/>
+      <text x="40" y="445" text-anchor="middle" fill="#07111F" font-family="'Space Mono',monospace" font-size="9" font-weight="600" letter-spacing="1">AFRICA</text>
+
+      <circle cx="560" cy="400" r="12" fill="#FFFFFF" stroke="#fbbf24" stroke-width="2" filter="url(#glowGold)"/>
+      <text x="560" y="425" text-anchor="middle" fill="#07111F" font-family="'Space Mono',monospace" font-size="9" font-weight="600" letter-spacing="1">MENA</text>
+
+      <circle cx="300" cy="470" r="10" fill="#FFFFFF" stroke="#60a5fa" stroke-width="1.5"/>
+      <text x="300" y="492" text-anchor="middle" fill="#07111F" font-family="'Space Mono',monospace" font-size="8" letter-spacing="1">OCEANIA</text>
+
+      <circle cx="100" cy="460" r="10" fill="#FFFFFF" stroke="rgba(197,22,50,0.4)" stroke-width="1.5"/>
+      <text x="100" y="482" text-anchor="middle" fill="#07111F" font-family="'Space Mono',monospace" font-size="8" letter-spacing="1">AMERICAS</text>
+
+      <circle cx="300" cy="240" r="140" fill="none" stroke="rgba(7,17,31,0.05)" stroke-width="1"/>
+      <circle cx="300" cy="240" r="200" fill="none" stroke="rgba(7,17,31,0.03)" stroke-width="1" stroke-dasharray="2 10"/>
+
+      <circle cx="300" cy="240" r="35" fill="none" stroke="#C51632" stroke-width="1.5">
+        <animate attributeName="r" values="35;140" dur="3.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0" dur="3.5s" repeatCount="indefinite"/>
       </circle>
     </svg>
   </div>
   <div>
     <div class="section-label"><span data-en>About Us</span><span data-tr>Hakkımızda</span></div>
     <h2 class="section-title"><span data-en>Global Reach.</span><span data-tr>Global Ağ.</span><br><em data-en>Local Expertise.</em><em data-tr>Yerel Uzmanlık.</em></h2>
-    
+
     <p class="section-sub">
-      <span data-en>Momentis Logistics is an international freight forwarding company headquartered in Izmir, Türkiye. We specialize in Sea Freight, Air Freight, and Road Freight solutions, offering flexible and reliable logistics services tailored to the needs of global trade.</span>
+      <span data-en>Momentis Logistics is an international freight forwarding company headquartered in İzmir, Türkiye. We specialize in Sea Freight, Air Freight, and Road Freight solutions, offering flexible and reliable logistics services tailored to the needs of global trade.</span>
       <span data-tr>Momentis Logistics, merkezi İzmir'de bulunan uluslararası bir freight forwarding şirketidir. Deniz yolu, hava yolu ve kara yolu taşımacılığı alanlarında uzmanlaşarak; global ticaretin ihtiyaçlarına uygun esnek ve güvenilir lojistik çözümleri sunmaktayız.</span>
     </p>
-    
+
     <p class="section-sub" style="margin-top:1rem">
       <span data-en>With a strong worldwide agency network and customer-oriented approach, we manage every shipment with precision, transparency, and speed. Our team combines operational experience with modern logistics solutions to support import, export, transit, and cross-trade shipments across multiple regions.</span>
       <span data-tr>Güçlü uluslararası acente ağımız ve müşteri odaklı hizmet anlayışımız sayesinde tüm operasyonlarımızı hız, şeffaflık ve hassasiyet ile yönetiyoruz. Ekibimiz; ithalat, ihracat, transit ve üçüncü ülke taşımalarında operasyonel tecrübeyi modern lojistik çözümleriyle birleştirerek müşterilerimize sürdürülebilir destek sağlamaktadır.</span>
     </p>
 
     <p class="section-sub" style="margin-top:1rem">
-      <span data-en>At Momentis Logistics, we believe logistics is not only about transportation it is about trust, communication, and long-term partnerships. Our mission is to provide sustainable, efficient, and competitive logistics solutions while maintaining the highest level of service quality.</span>
+      <span data-en>At Momentis Logistics, we believe logistics is not only about transportation — it is about trust, communication, and long-term partnerships. Our mission is to provide sustainable, efficient, and competitive logistics solutions while maintaining the highest level of service quality.</span>
       <span data-tr>Momentis Logistics olarak lojistiğin yalnızca taşımacılıktan ibaret olmadığına; güven, iletişim ve uzun vadeli iş ortaklıkları üzerine kurulu olduğuna inanıyoruz. Misyonumuz; yüksek hizmet kalitesinden ödün vermeden sürdürülebilir, rekabetçi ve verimli lojistik çözümleri sunmaktır.</span>
     </p>
 
     <div class="about-info-grid">
       <div class="about-card reveal">
-        <div class="about-card-num">3</div>
-        <div class="about-card-text"><span data-en>Transport Modes</span><span data-tr>Taşıma Modu</span></div>
-      </div>
-      <div class="about-card reveal">
         <div class="about-card-num">150<sup>+</sup></div>
         <div class="about-card-text"><span data-en>Global Partners</span><span data-tr>Global Ortak</span></div>
+      </div>
+      <div class="about-card reveal">
+        <div class="about-card-num">+27</div>
+        <div class="about-card-text"><span data-en>Years of Experience</span><span data-tr>Yıllık Deneyim</span></div>
       </div>
     </div>
   </div>
@@ -792,134 +873,134 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
     </div>
     <div class="services-mode-tabs">
       <button class="mode-tab active" data-filter="all"><span data-en>All</span><span data-tr>Tümü</span></button>
-      <button class="mode-tab" data-filter="air">✈ <span data-en>Air</span><span data-tr>Hava</span></button>
-      <button class="mode-tab" data-filter="sea">🚢 <span data-en>Sea</span><span data-tr>Deniz</span></button>
-      <button class="mode-tab" data-filter="road">🚛 <span data-en>Road</span><span data-tr>Kara</span></button>
+      <button class="mode-tab" data-filter="air"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16l-6-2-3 7-2-1 2-7-5-2-1 3-2-1 3-9 14 4-2 2-3-1-2 5z"/></svg> <span data-en>Air</span><span data-tr>Hava</span></button>
+      <button class="mode-tab" data-filter="sea"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 18h2l1-4h14l1 4h2M5 14l1-5h12l1 5M6 9l1-4h10l1 4"/><circle cx="8" cy="20" r="1.5" fill="currentColor"/><circle cx="16" cy="20" r="1.5" fill="currentColor"/></svg> <span data-en>Sea</span><span data-tr>Deniz</span></button>
+      <button class="mode-tab" data-filter="road"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><circle cx="6" cy="18" r="1.5" fill="currentColor"/><circle cx="18" cy="18" r="1.5" fill="currentColor"/><line x1="6" y1="7" x2="6" y2="5"/><line x1="18" y1="7" x2="18" y2="5"/></svg> <span data-en>Road</span><span data-tr>Kara</span></button>
     </div>
   </div>
-  
+
   <div class="services-grid" id="services-grid">
-    
+
     <div class="service-card reveal" data-category="air">
-      <div class="service-icon">✈</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16l-6-2-3 7-2-1 2-7-5-2-1 3-2-1 3-9 14 4-2 2-3-1-2 5z"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS AIR</span><span data-tr>MOMENTIS HAVA</span></div>
       <div class="service-title"><span data-en>Airport to Airport</span><span data-tr>Havalimanından Havalimanına</span></div>
       <p class="service-desc"><span data-en>Direct air freight services connecting major international airports worldwide with competitive transit times and full cargo tracking visibility.</span><span data-tr>Tüm büyük uluslararası havalimanlarını birbirine bağlayan direkt hava kargo hizmetleri. Rekabetçi transit süreler ve tam kargo takibi.</span></p>
     </div>
-    
+
     <div class="service-card reveal" data-category="air">
-      <div class="service-icon">🚪</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><circle cx="8" cy="12" r="1.5" fill="currentColor"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS AIR</span><span data-tr>MOMENTIS HAVA</span></div>
       <div class="service-title"><span data-en>Door to Door</span><span data-tr>Kapıdan Kapıya</span></div>
       <p class="service-desc"><span data-en>End-to-end air freight management from pickup at origin to final delivery, including customs clearance and last-mile delivery coordination.</span><span data-tr>Menşe noktasından nihai teslimata kadar uçtan uca hava kargo yönetimi; gümrük işlemleri ve son mil teslimat koordinasyonu dahil.</span></p>
     </div>
-    
+
     <div class="service-card reveal" data-category="air">
-      <div class="service-icon">⚡</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS AIR</span><span data-tr>MOMENTIS HAVA</span></div>
       <div class="service-title"><span data-en>Express Shipments</span><span data-tr>Ekspres Gönderiler</span></div>
       <p class="service-desc"><span data-en>Priority handling for time-critical cargo with next-flight-out options, dedicated booking channels and real-time shipment monitoring.</span><span data-tr>Zaman kritik yükler için öncelikli işlem, ilk uçuş seçenekleri, özel rezervasyon kanalları ve gerçek zamanlı takip.</span></p>
     </div>
-    
+
     <div class="service-card reveal" data-category="air">
-      <div class="service-icon">👜</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="14" rx="2"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS AIR</span><span data-tr>MOMENTIS HAVA</span></div>
       <div class="service-title"><span data-en>Hand Carry Services</span><span data-tr>Hand Carry Hizmeti</span></div>
       <p class="service-desc"><span data-en>Dedicated couriers personally accompanying urgent shipments on passenger flights. Ideal for prototypes, critical components, and sensitive documents.</span><span data-tr>Acil gönderileri yolcu uçuşlarında bizzat eşlik eden özel kurye hizmeti. Prototip, kritik parça ve hassas belgeler için idealdir.</span></p>
     </div>
-    
+
     <div class="service-card reveal" data-category="air">
-      <div class="service-icon">🌡</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v5M12 17v5M4.93 4.93l3.54 3.54M15.53 15.53l3.54 3.54M2 12h5M17 12h5M4.93 19.07l3.54-3.54M15.53 8.47l3.54-3.54"/><circle cx="12" cy="12" r="3"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS AIR</span><span data-tr>MOMENTIS HAVA</span></div>
       <div class="service-title"><span data-en>Perishable Cargo</span><span data-tr>Bozulabilir Kargo Taşımaları</span></div>
       <p class="service-desc"><span data-en>Temperature-controlled air freight solutions for fresh produce, pharmaceuticals, flowers and other perishable commodities requiring strict chain-of-custody.</span><span data-tr>Taze ürünler, ilaçlar, çiçekler ve sıkı muhafaza zinciri gerektiren bozulabilir mallar için sıcaklık kontrollü hava kargo çözümleri.</span></p>
     </div>
 
     <div class="service-card reveal" data-category="air">
-      <div class="service-icon">🔄</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS AIR</span><span data-tr>MOMENTIS HAVA</span></div>
       <div class="service-title"><span data-en>Transit & Cross Trade</span><span data-tr>Transit ve Üçüncü Ülke</span></div>
       <p class="service-desc"><span data-en>Managing air shipments through or between foreign countries without the cargo entering Türkiye. Full documentation and compliance.</span><span data-tr>Yükün Türkiye'ye girmeksizin transit veya iki yabancı ülke arasında taşınması. Tam dokümantasyon ve taşıyıcı koordinasyonu.</span></p>
     </div>
 
     <div class="service-card reveal" data-category="sea">
-      <div class="service-icon">🚢</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 18h2l1-4h14l1 4h2M5 14l1-5h12l1 5M6 9l1-4h10l1 4"/><circle cx="8" cy="20" r="1.5" fill="currentColor"/><circle cx="16" cy="20" r="1.5" fill="currentColor"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS SEA</span><span data-tr>MOMENTIS DENİZ</span></div>
       <div class="service-title"><span data-en>FCL / LCL Shipments</span><span data-tr>FCL / LCL Taşımaları</span></div>
       <p class="service-desc"><span data-en>Full Container Load for dedicated space and Less than Container Load consolidation for smaller shipments, offering cost-effective sea logistics.</span><span data-tr>Özel alan için Tam Konteyner Yükü (FCL) ve küçük kargolar için Parsiyel Konteyner (LCL) konsolidasyonu ile maliyet etkin çözümler.</span></p>
     </div>
 
     <div class="service-card reveal" data-category="sea">
-      <div class="service-icon">⚓</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M6 14l2 6h8l2-6"/><circle cx="12" cy="6" r="1.5" fill="currentColor"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS SEA</span><span data-tr>MOMENTIS DENİZ</span></div>
       <div class="service-title"><span data-en>Port to Port</span><span data-tr>Limandan Limana</span></div>
       <p class="service-desc"><span data-en>Sea freight between any two ports with optimal carrier selection, competitive freight rates and comprehensive Bill of Lading management.</span><span data-tr>Herhangi iki liman arasında deniz taşımacılığı; optimal taşıyıcı seçimi, rekabetçi navlun ve kapsamlı konişmento yönetimi.</span></p>
     </div>
-    
+
     <div class="service-card reveal" data-category="sea">
-      <div class="service-icon">🚪</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><circle cx="8" cy="12" r="1.5" fill="currentColor"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS SEA</span><span data-tr>MOMENTIS DENİZ</span></div>
       <div class="service-title"><span data-en>Door to Door</span><span data-tr>Kapıdan Kapıya</span></div>
       <p class="service-desc"><span data-en>Complete end-to-end maritime logistics, handling pre-carriage, ocean freight, customs clearance, and final delivery to the consignee's address.</span><span data-tr>Ön taşıma, deniz navlunu, gümrük ve alıcı adresine nihai teslimatı kapsayan tam uçtan uca deniz lojistiği.</span></p>
     </div>
 
     <div class="service-card reveal" data-category="sea">
-      <div class="service-icon">🏗</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS SEA</span><span data-tr>MOMENTIS DENİZ</span></div>
       <div class="service-title"><span data-en>Heavy & Project Cargo</span><span data-tr>Ağır Yük & Proje Taşıma</span></div>
       <p class="service-desc"><span data-en>Transportation of oversized, heavy or complex industrial cargo requiring special handling, flat-racks, open-tops and dedicated planning.</span><span data-tr>Özel elleçleme, flat-rack, açık üst ve özel planlama gerektiren aşırı boyutlu veya ağır endüstriyel proje yüklerinin taşınması.</span></p>
     </div>
 
     <div class="service-card reveal" data-category="sea">
-      <div class="service-icon">🛳</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 18h2l1-4h14l1 4h2M5 14l1-5h12l1 5M6 9l1-4h10l1 4"/><line x1="8" y1="20" x2="16" y2="20"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS SEA</span><span data-tr>MOMENTIS DENİZ</span></div>
       <div class="service-title"><span data-en>Transit Shipments</span><span data-tr>Transit Taşımalar</span></div>
       <p class="service-desc"><span data-en>Secure maritime routing for goods passing through intermediary ports en route to their final global destination.</span><span data-tr>Nihai global varış noktalarına giden yolda aracı limanlardan geçen mallar için güvenli deniz rotalaması.</span></p>
     </div>
 
     <div class="service-card reveal" data-category="sea">
-      <div class="service-icon">🌐</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS SEA</span><span data-tr>MOMENTIS DENİZ</span></div>
       <div class="service-title"><span data-en>Cross Trade Operations</span><span data-tr>Üçüncü Ülke Operasyonları</span></div>
       <p class="service-desc"><span data-en>Organizing sea freight between foreign nations strictly via our global agency network without routing through the home country.</span><span data-tr>Kendi ülkemize uğramadan, doğrudan global acente ağımız üzerinden yabancı ülkeler arası deniz taşımacılığının organizasyonu.</span></p>
     </div>
 
     <div class="service-card reveal" data-category="road">
-      <div class="service-icon">🚛</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><circle cx="6" cy="18" r="1.5" fill="currentColor"/><circle cx="18" cy="18" r="1.5" fill="currentColor"/><line x1="6" y1="7" x2="6" y2="5"/><line x1="18" y1="7" x2="18" y2="5"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS ROAD</span><span data-tr>MOMENTIS KARA</span></div>
       <div class="service-title"><span data-en>FTL & LTL Europe</span><span data-tr>Avrupa FTL & LTL Servisleri</span></div>
       <p class="service-desc"><span data-en>Full Truck Load and Less than Truck Load services across Europe providing scalable capacity, reliable transit times, and wide network coverage.</span><span data-tr>Avrupa çapında ölçeklenebilir kapasite, güvenilir transit süreleri ve geniş ağ kapsamı sunan Komple ve Parsiyel Araç taşıma servisleri.</span></p>
     </div>
-    
+
     <div class="service-card reveal" data-category="road">
-      <div class="service-icon">📬</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="12" rx="2"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS ROAD</span><span data-tr>MOMENTIS KARA</span></div>
       <div class="service-title"><span data-en>Minivan Express Solutions</span><span data-tr>Minivan Ekspres Çözümleri</span></div>
       <p class="service-desc"><span data-en>Fast, flexible road transportation using small-capacity vehicles for urgent, time-critical deliveries with next-day options across key corridors.</span><span data-tr>Kritik koridorlarda ertesi gün seçenekleriyle acil teslimatlar için küçük kapasiteli araçlarla hızlı, esnek kara taşımacılığı.</span></p>
     </div>
 
     <div class="service-card reveal" data-category="road">
-      <div class="service-icon">🛣</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/><circle cx="8" cy="6" r="1"/><circle cx="16" cy="12" r="1"/><circle cx="8" cy="18" r="1"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS ROAD</span><span data-tr>MOMENTIS KARA</span></div>
       <div class="service-title"><span data-en>Transit Shipments</span><span data-tr>Transit Taşımalar</span></div>
       <p class="service-desc"><span data-en>Efficient overland forwarding for goods utilizing international highway corridors to reach destinations beyond immediate borders.</span><span data-tr>Sınır ötesi hedeflere ulaşmak için uluslararası karayolu koridorlarını kullanan verimli kara nakliyesi.</span></p>
     </div>
-    
+
     <div class="service-card reveal" data-category="road">
-      <div class="service-icon">🛃</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/><circle cx="7" cy="6.5" r="0.8" fill="currentColor"/><circle cx="17" cy="6.5" r="0.8" fill="currentColor"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS ROAD</span><span data-tr>MOMENTIS KARA</span></div>
       <div class="service-title"><span data-en>Cross Border Deliveries</span><span data-tr>Sınır Ötesi Teslimatlar</span></div>
       <p class="service-desc"><span data-en>Seamless international road freight with expert customs coordination, TIR carnet management and multi-language documentation support.</span><span data-tr>Uzman gümrük koordinasyonu, TIR karnet yönetimi ve çok dilli dokümantasyon desteğiyle sorunsuz uluslararası kara taşımacılığı.</span></p>
     </div>
 
     <div class="service-card reveal" data-category="road">
-      <div class="service-icon">🌍</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>
       <div class="service-mode-badge"><span data-en>MOMENTIS ROAD</span><span data-tr>MOMENTIS KARA</span></div>
       <div class="service-title"><span data-en>Third Country Operations</span><span data-tr>Üçüncü Ülke Operasyonları</span></div>
       <p class="service-desc"><span data-en>Managing complex road freight logistics between two foreign nations entirely managed through our centralized command center.</span><span data-tr>Merkezi komuta ofisimiz üzerinden iki yabancı ülke arasında gerçekleştirilen karmaşık kara lojistiği yönetimi.</span></p>
     </div>
-    
-    <div class="service-card reveal" data-category="road" style="cursor: default;"></div>
+
+    <div class="service-card reveal" data-category="road" style="cursor: default;background:transparent;border:none;"></div>
 
   </div>
 </section>
@@ -932,37 +1013,37 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
   <div class="why-grid">
     <div class="why-card reveal">
       <div class="why-num">01</div>
-      <div class="why-icon">🌐</div>
+      <div class="why-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="16" cy="16" r="14"/><ellipse cx="16" cy="16" rx="5" ry="14"/><line x1="2" y1="16" x2="30" y2="16"/></svg></div>
       <div class="why-title"><span data-en>Strong Global Agency Network</span><span data-tr>Güçlü Global Acente Ağı</span></div>
       <p class="why-text"><span data-en>An extensive partner network spanning 150+ countries ensures seamless origin and destination handling for every shipment.</span><span data-tr>150'den fazla ülkeye yayılan geniş ortak ağımız, en uzak koridorlarda bile her gönderi için kusursuz işlemler sağlar.</span></p>
     </div>
     <div class="why-card reveal">
       <div class="why-num">02</div>
-      <div class="why-icon">💬</div>
+      <div class="why-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 4H8a4 4 0 00-4 4v12a4 4 0 004 4h16a4 4 0 004-4V8a4 4 0 00-4-4z"/><polyline points="8 10 16 16 24 10"/></svg></div>
       <div class="why-title"><span data-en>Fast & Transparent Communication</span><span data-tr>Hızlı ve Şeffaf İletişim</span></div>
       <p class="why-text"><span data-en>Real-time updates, proactive status reporting and a dedicated account management model. We bring the information to you.</span><span data-tr>Gerçek zamanlı güncellemeler, proaktif raporlama ve özel hesap yönetimi. Bilgiyi siz aramak zorunda kalmayacaksınız.</span></p>
     </div>
     <div class="why-card reveal">
       <div class="why-num">03</div>
-      <div class="why-icon">💰</div>
+      <div class="why-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="16" cy="16" r="14"/><path d="M16 6v10l6 4"/></svg></div>
       <div class="why-title"><span data-en>Competitive Freight Solutions</span><span data-tr>Rekabetçi Navlun Çözümleri</span></div>
       <p class="why-text"><span data-en>Leveraging strong carrier relationships and volume consolidation to deliver best-in-market freight rates without compromising quality.</span><span data-tr>Güçlü taşıyıcı ilişkileri sayesinde hizmet kalitesinden ödün vermeden piyasanın en rekabetçi navlun tarifelerini sunuyoruz.</span></p>
     </div>
     <div class="why-card reveal">
       <div class="why-num">04</div>
-      <div class="why-icon">🔧</div>
+      <div class="why-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="20" cy="20" r="3"/><path d="M14 14l4 4M8 8l2 2M20 8l-2 2M8 20l2-2"/></svg></div>
       <div class="why-title"><span data-en>Flexible Logistics Management</span><span data-tr>Esnek Operasyon Yönetimi</span></div>
       <p class="why-text"><span data-en>Adapting to dynamic global trade needs, we design custom routing, documentation and handling for each client.</span><span data-tr>Global ticaretin dinamik ihtiyaçlarına uyum sağlayarak her müşterinin gereksinimlerine göre özel çözümler tasarlıyoruz.</span></p>
     </div>
     <div class="why-card reveal">
       <div class="why-num">05</div>
-      <div class="why-icon">🤝</div>
+      <div class="why-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 16c0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6-6-2.7-6-6z"/><path d="M8 22l-4 4M24 22l4 4M16 4v2"/></svg></div>
       <div class="why-title"><span data-en>Customer-Oriented Approach</span><span data-tr>Müşteri Odaklı Hizmet</span></div>
       <p class="why-text"><span data-en>Long-term partnerships built on trust. We treat every cargo as our own and maintain a hands-on relationship from day one.</span><span data-tr>Güven üzerine kurulu uzun vadeli ortaklıklar. Müşterilerimizin yükünü kendi sorumluluğumuz olarak görüyor, kişisel bir ilişki sürdürüyoruz.</span></p>
     </div>
     <div class="why-card reveal">
       <div class="why-num">06</div>
-      <div class="why-icon">🛡</div>
+      <div class="why-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 2l10 6v6c0 6.6-4.3 12.8-10 14.8C10.3 30.8 6 24.6 6 18v-6l10-6z"/><polyline points="11 16 14 19 21 12"/></svg></div>
       <div class="why-title"><span data-en>Reliable Operational Support</span><span data-tr>Güvenilir Operasyon Desteği</span></div>
       <p class="why-text"><span data-en>End-to-end execution with proactive exception management, contingency planning and full cargo insurance coordination.</span><span data-tr>Proaktif istisna yönetimi, acil durum planlaması ve tam kargo sigortası koordinasyonuyla uçtan uca operasyonel yürütme.</span></p>
     </div>
@@ -1000,9 +1081,9 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
         <span class="tech-metric-label"><span data-en>ETA accuracy</span><span data-tr>ETA doğruluğu</span></span>
         <span class="tech-metric-val blue">98.2%</span>
       </div>
-      
+
       <div class="tech-panel-header" style="margin-top:2.5rem">
-        <div class="tech-panel-dot" style="background:#60a5fa"></div>
+        <div class="tech-panel-dot" style="background:#2563eb"></div>
         <div class="tech-panel-title"><span data-en>Compliance</span><span data-tr>Uyum</span></div>
       </div>
       <div class="tech-metric-row">
@@ -1014,7 +1095,7 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
         <span class="tech-metric-val blue">SECURE</span>
       </div>
     </div>
-    
+
     <div class="tech-panel reveal" style="padding: 1rem; border-color: rgba(96,165,250,0.3);">
       <div class="radar-map-container">
         <svg class="radar-map-svg" viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice">
@@ -1022,11 +1103,11 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(96,165,250,0.15)" stroke-width="0.5"/>
           </pattern>
           <rect width="100%" height="100%" fill="url(#radarGrid)"/>
-          
+
           <circle cx="400" cy="240" r="80" fill="none" stroke="rgba(96,165,250,0.2)" stroke-width="1"/>
           <circle cx="400" cy="240" r="160" fill="none" stroke="rgba(96,165,250,0.2)" stroke-width="1"/>
           <circle cx="400" cy="240" r="240" fill="none" stroke="rgba(96,165,250,0.2)" stroke-width="1"/>
-          
+
           <path d="M 400 240 L 400 0 A 240 240 0 0 1 640 240 Z" fill="url(#radarGradient)" class="radar-sweep" />
           <defs>
             <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1045,7 +1126,7 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
           <circle cx="650" cy="100" r="4" class="radar-node" style="animation-delay: 0.5s"/>
           <circle cx="200" cy="400" r="4" class="radar-node" style="animation-delay: 1s"/>
           <circle cx="600" cy="350" r="4" class="radar-node" style="animation-delay: 1.5s"/>
-          
+
           <line x1="400" y1="0" x2="400" y2="480" stroke="rgba(96,165,250,0.3)" stroke-width="1"/>
           <line x1="0" y1="240" x2="800" y2="240" stroke="rgba(96,165,250,0.3)" stroke-width="1"/>
         </svg>
@@ -1224,7 +1305,7 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
       <div class="glossary-term"><span class="glossary-abbr">DDP</span> <span data-en>Delivered Duty Paid</span><span data-tr>Gümrük Vergileri Ödenmiş Teslim</span></div>
       <p class="glossary-def"><span data-en>The seller assumes all transportation costs, customs duties and delivery responsibilities up to the final destination.</span><span data-tr>Satıcı nihai varış noktasına kadar tüm taşıma masraflarını, gümrük vergilerini ve teslimat sorumluluklarını üstlenir.</span></p>
     </div>
-    
+
     <div class="glossary-item reveal" style="cursor: default;"></div>
 
   </div>
@@ -1238,17 +1319,17 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
       <span data-en>For all Sea Freight, Air Freight, Road Freight and Cross Trade shipment inquiries, our team is ready to assist you with fast and reliable logistics solutions.</span>
       <span data-tr>Deniz yolu, hava yolu, kara yolu, transit ve üçüncü ülke taşımalarına ilişkin tüm talepleriniz için ekibimiz hızlı ve güvenilir çözümler sunmaya hazırdır.</span>
     </p>
-    
+
     <div style="margin-top:3.5rem">
       <div class="contact-detail">
-        <div class="contact-icon">📍</div>
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
         <div class="contact-text">
           <strong><span data-en>Momentis Logistics Headquarters</span><span data-tr>Momentis Logistics Merkez Ofis</span></strong>
           <p>Yalı Bulvarı No: 386 D:2<br>Karşıyaka, İzmir<br>Türkiye</p>
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-icon">✉</div>
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2 8 12 14 22 8"/></svg></div>
         <div class="contact-text">
           <strong><span data-en>Email</span><span data-tr>E-posta</span></strong>
           <a href="mailto:momentis.tr@momentislogistics.com">momentis.tr@momentislogistics.com</a>
@@ -1256,7 +1337,7 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
       </div>
     </div>
   </div>
-  
+
   <div class="contact-form reveal">
     <div class="form-row">
       <div class="form-group floating">
@@ -1286,9 +1367,9 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
       <textarea id="fmessage" placeholder=" "></textarea>
       <label for="fmessage"><span data-en>Message / Cargo Details</span><span data-tr>Mesaj / Yük Detayları</span></label>
     </div>
-    
+
     <div id="main-form-msg" class="form-msg"></div>
-    
+
     <button class="btn-primary" style="width:100%;margin-top:1rem" onclick="submitForm('main')">
       <span data-en>Send Inquiry →</span><span data-tr>Talep Gönder →</span>
     </button>
@@ -1299,7 +1380,7 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-logo-text">MOMENTIS<span> LOGISTICS</span></div>
-      <p><span data-en>International freight forwarding headquartered in Izmir, Türkiye. Sea · Air · Road — Precision in Every Move.</span><span data-tr>İzmir, Türkiye merkezli uluslararası freight forwarding şirketi. Deniz · Hava · Kara — Her Taşımada Hassasiyet.</span></p>
+      <p><span data-en>International freight forwarding headquartered in İzmir, Türkiye. Sea · Air · Road — Precision in Every Move.</span><span data-tr>İzmir, Türkiye merkezli uluslararası freight forwarding şirketi. Deniz · Hava · Kara — Her Taşımada Hassasiyet.</span></p>
     </div>
     <div class="footer-col">
       <h4><span data-en>Services</span><span data-tr>Hizmetler</span></h4>
@@ -1331,9 +1412,9 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
   <div class="footer-bottom">
     <div class="footer-copy">© 2025 Momentis Lojistik ve Taşımacılık Dış Ticaret A.Ş. — All rights reserved.</div>
     <div class="footer-modes">
-      <div class="footer-mode"><span>✈</span> Momentis Air</div>
-      <div class="footer-mode"><span>🚢</span> Momentis Sea</div>
-      <div class="footer-mode"><span>🚛</span> Momentis Road</div>
+      <div class="footer-mode"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--crimson)" stroke-width="2"><path d="M21 16l-6-2-3 7-2-1 2-7-5-2-1 3-2-1 3-9 14 4-2 2-3-1-2 5z"/></svg> Momentis Air</div>
+      <div class="footer-mode"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--crimson)" stroke-width="2"><path d="M2 18h2l1-4h14l1 4h2M5 14l1-5h12l1 5M6 9l1-4h10l1 4"/></svg> Momentis Sea</div>
+      <div class="footer-mode"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--crimson)" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/></svg> Momentis Road</div>
     </div>
   </div>
 </footer>
@@ -1342,8 +1423,8 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="section-label"><span data-en>Quick Quote</span><span data-tr>Hızlı Teklif</span></div>
-    <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;text-transform:uppercase;margin:0.5rem 0 2rem;color:var(--white)"><span data-en>Request a Quote</span><span data-tr>Teklif Talep Edin</span></h3>
-    
+    <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;text-transform:uppercase;margin:0.5rem 0 2rem;"><span data-en>Request a Quote</span><span data-tr>Teklif Talep Edin</span></h3>
+
     <div style="display:flex;flex-direction:column;gap:1.5rem">
       <div class="form-group floating">
         <input type="text" id="mname" placeholder=" ">
@@ -1362,9 +1443,9 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
         </select>
         <label for="mservice"><span data-en>Service Type</span><span data-tr>Hizmet Türü</span></label>
       </div>
-      
+
       <div id="modal-form-msg" class="form-msg"></div>
-      
+
       <button class="btn-primary" style="width:100%" onclick="submitForm('modal')">
         <span data-en>Submit Request →</span><span data-tr>Talebi Gönder →</span>
       </button>
@@ -1372,41 +1453,64 @@ footer { background: var(--graphite); padding: 5rem 4rem 2rem; border-top: 1px s
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+</script>
 <script>
 // ── LANGUAGE SYSTEM ──────────────────────────────────────────────
 function setLang(lang) {
   document.documentElement.lang = lang;
-  document.body.className = `lang-${lang}`;
+  document.body.className = 'lang-' + lang;
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
 }
 
-// ── UI INTERACTIONS ──────────────────────────────────────────────
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-});
+// ── NAV SCROLL ───────────────────────────────────────────────────
+var navEl = document.getElementById('nav');
+var lastScrollY = 0;
+var ticking = false;
+function updateNavScroll() {
+  var scrollY = window.scrollY;
+  if (scrollY > 50) {
+    navEl.classList.add('scrolled');
+  } else {
+    navEl.classList.remove('scrolled');
+  }
+  ticking = false;
+}
+window.addEventListener('scroll', function() {
+  if (!ticking) {
+    requestAnimationFrame(updateNavScroll);
+    ticking = true;
+  }
+}, { passive: true });
 
+// ── MOBILE MENU ──────────────────────────────────────────────────
 function toggleMenu() {
-  document.getElementById('nav').classList.toggle('menu-open');
+  navEl.classList.toggle('menu-open');
 }
 
+// ── MODAL ─────────────────────────────────────────────────────────
 function openModal() {
   document.getElementById('quoteModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 function closeModal() {
   document.getElementById('quoteModal').classList.remove('open');
-  document.getElementById('modal-form-msg').style.display = 'none';
+  document.body.style.overflow = '';
+  var msgDiv = document.getElementById('modal-form-msg');
+  if (msgDiv) msgDiv.style.display = 'none';
 }
+document.getElementById('quoteModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
 
-// ── FORM VALIDATION & NOTIFICATION ───────────────────────────────
+// ── FORM SUBMISSION ──────────────────────────────────────────────
 function submitForm(type) {
-  const emailInput = document.getElementById(type === 'main' ? 'femail' : 'memail');
-  const msgDiv = document.getElementById(type === 'main' ? 'main-form-msg' : 'modal-form-msg');
-  const email = emailInput.value.trim();
-  const isTr = document.documentElement.lang === 'tr';
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var emailInput = document.getElementById(type === 'main' ? 'femail' : 'memail');
+  var msgDiv = document.getElementById(type === 'main' ? 'main-form-msg' : 'modal-form-msg');
+  var email = emailInput.value.trim();
+  var isTr = document.documentElement.lang === 'tr';
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailRegex.test(email)) {
     msgDiv.className = 'form-msg error';
@@ -1415,13 +1519,11 @@ function submitForm(type) {
     return;
   }
 
-  // Success
   msgDiv.className = 'form-msg success';
   msgDiv.innerHTML = isTr ? 'Mesajınız başarıyla gönderildi.' : 'Your message has been sent successfully.';
   msgDiv.style.display = 'block';
 
-  // Clear inputs
-  if(type === 'main') {
+  if (type === 'main') {
     document.getElementById('fname').value = '';
     document.getElementById('fcompany').value = '';
     document.getElementById('femail').value = '';
@@ -1433,151 +1535,131 @@ function submitForm(type) {
     document.getElementById('mservice').value = '';
   }
 
-  setTimeout(() => {
+  setTimeout(function() {
     msgDiv.style.display = 'none';
-    if(type === 'modal') {
-      closeModal();
-    }
+    if (type === 'modal') closeModal();
   }, 4000);
 }
 
 // ── SERVICES TAB FILTER ──────────────────────────────────────────
-const tabs = document.querySelectorAll('.mode-tab');
-const cards = document.querySelectorAll('.service-card');
-
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
+var tabs = document.querySelectorAll('.mode-tab');
+var cards = document.querySelectorAll('.service-card');
+tabs.forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    tabs.forEach(function(t) { t.classList.remove('active'); });
     tab.classList.add('active');
-    
-    const filter = tab.dataset.filter;
-    cards.forEach(card => {
+    var filter = tab.dataset.filter;
+    cards.forEach(function(card) {
       if (filter === 'all' || card.dataset.category === filter) {
         card.style.display = 'block';
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, 10);
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
       } else {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
-        setTimeout(() => { card.style.display = 'none'; }, 400);
+        setTimeout(function() { card.style.display = 'none'; }, 400);
       }
     });
-    
-    // Refresh ScrollReveal instances
-    setTimeout(() => {
-      window.dispatchEvent(new Event('scroll'));
-    }, 450);
+    setTimeout(function() { window.dispatchEvent(new Event('scroll')); }, 450);
   });
 });
 
 // ── SCROLL REVEAL ────────────────────────────────────────────────
-const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
+var revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
     }
   });
-}, revealOptions);
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
 
-
-// ── THREE.JS REALISTIC GLOBE ─────────────────────────────────────
+// ── THREE.JS GLOBE ───────────────────────────────────────────────
 (function() {
-  const container = document.getElementById('globe-container');
-  const canvas = document.getElementById('globe-canvas');
-  
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  var container = document.getElementById('globe-container');
+  var canvas = document.getElementById('globe-canvas');
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  
-  function resize() {
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-    renderer.setSize(width, height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-  }
-  
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
   camera.position.set(0, 0, 4.5);
-  
-  const R = 2.0; // Globe Radius
-  const globeGroup = new THREE.Group();
+
+  var R = 2.0;
+  var globeGroup = new THREE.Group();
   scene.add(globeGroup);
 
-  // Position based on screen size
-  if(window.innerWidth > 1024) {
-    globeGroup.position.set(0.5, 0, 0); 
+  if (window.innerWidth > 1024) {
+    globeGroup.position.set(0.5, 0, 0);
   } else {
     globeGroup.position.set(0, -0.5, 0);
   }
 
-  // Loaders
-  const txLoader = new THREE.TextureLoader();
-  
-  // Base materials (using fallback colors if images fail to load or take time)
-  const earthMat = new THREE.MeshPhongMaterial({
-    color: 0x07111F,
-    specular: 0x112244,
-    shininess: 25,
-    emissive: 0x050505
+  var txLoader = new THREE.TextureLoader();
+
+  var earthMat = new THREE.MeshPhongMaterial({
+    color: 0x0a1a2e,
+    specular: 0x1a3a5e,
+    shininess: 30,
+    emissive: 0x020810
   });
-  
-  const cloudMat = new THREE.MeshPhongMaterial({
+
+  var cloudMat = new THREE.MeshPhongMaterial({
     color: 0xffffff,
     transparent: true,
-    opacity: 0.25,
+    opacity: 0.3,
     blending: THREE.AdditiveBlending,
     depthWrite: false
   });
 
-  // Attempt to load high-res textures
-  txLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg', (tex) => {
+  txLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg', function(tex) {
     earthMat.map = tex;
     earthMat.color.setHex(0xffffff);
+    earthMat.emissive.setHex(0x000000);
     earthMat.needsUpdate = true;
   });
-  txLoader.load('https://unpkg.com/three-globe/example/img/earth-water.png', (tex) => {
+  txLoader.load('https://unpkg.com/three-globe/example/img/earth-water.png', function(tex) {
     earthMat.specularMap = tex;
     earthMat.needsUpdate = true;
   });
-  
-  // Earth Sphere
-  const earthGeo = new THREE.SphereGeometry(R, 64, 64);
-  const earth = new THREE.Mesh(earthGeo, earthMat);
+
+  var earthGeo = new THREE.SphereGeometry(R, 72, 72);
+  var earth = new THREE.Mesh(earthGeo, earthMat);
   globeGroup.add(earth);
 
-  // Clouds Sphere
-  const cloudGeo = new THREE.SphereGeometry(R * 1.012, 64, 64);
-  const clouds = new THREE.Mesh(cloudGeo, cloudMat);
+  var cloudGeo = new THREE.SphereGeometry(R * 1.014, 72, 72);
+  var clouds = new THREE.Mesh(cloudGeo, cloudMat);
   globeGroup.add(clouds);
 
-  // Atmosphere Glow
-  const atmosMat = new THREE.MeshBasicMaterial({
-    color: 0x60a5fa,
+  var atmosMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uTime: { value: 0 },
+      uColor: { value: new THREE.Color('#60a5fa') }
+    },
+    vertexShader: 'varying vec3 vNormal; varying vec3 vPosition; void main() { vNormal = normalize(normalMatrix * normal); vPosition = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+    fragmentShader: 'varying vec3 vNormal; varying vec3 vPosition; uniform vec3 uColor; void main() { float intensity = pow(0.65 - dot(vNormal, vec3(0.0,0.0,1.0)), 3.0); gl_FragColor = vec4(uColor, intensity * 0.45); }',
     transparent: true,
-    opacity: 0.1,
     side: THREE.BackSide,
-    blending: THREE.AdditiveBlending
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
   });
-  const atmos = new THREE.Mesh(new THREE.SphereGeometry(R * 1.05, 64, 64), atmosMat);
+  var atmos = new THREE.Mesh(new THREE.SphereGeometry(R * 1.08, 72, 72), atmosMat);
   globeGroup.add(atmos);
 
-  // Lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+  var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
   scene.add(ambientLight);
-  const sunLight = new THREE.DirectionalLight(0xffffff, 1.5);
+  var sunLight = new THREE.DirectionalLight(0xffffff, 2.0);
   sunLight.position.set(5, 3, 3);
   scene.add(sunLight);
-  const rimLight = new THREE.DirectionalLight(0x60a5fa, 0.8);
+  var rimLight = new THREE.DirectionalLight(0x60a5fa, 1.2);
   rimLight.position.set(-5, 0, -5);
   scene.add(rimLight);
+  var fillLight = new THREE.DirectionalLight(0x3366aa, 0.6);
+  fillLight.position.set(0, -3, 2);
+  scene.add(fillLight);
 
-  // Utils
   function latLongToVector3(lat, lon, radius) {
     var phi = (90 - lat) * (Math.PI / 180);
     var theta = (lon + 180) * (Math.PI / 180);
@@ -1587,75 +1669,73 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     return new THREE.Vector3(x, y, z);
   }
 
-  // Markers & Routes
-  const routesData = [
-    { start: [41, 28.9], end: [40.7, -74], color: 0x60a5fa },  // IST - NYC
-    { start: [41, 28.9], end: [31.2, 121.4], color: 0x4ade80 }, // IST - Shanghai
-    { start: [41, 28.9], end: [25.2, 55.3], color: 0xfbbf24 },  // IST - Dubai
-    { start: [41, 28.9], end: [51.5, -0.1], color: 0x60a5fa },  // IST - London
+  var routesData = [
+    { start: [39, 35], end: [40.7, -74], color: 0x60a5fa },
+    { start: [39, 35], end: [31.2, 121.4], color: 0x4ade80 },
+    { start: [39, 35], end: [25.2, 55.3], color: 0xfbbf24 },
+    { start: [39, 35], end: [51.5, -0.1], color: 0x60a5fa },
+    { start: [39, 35], end: [-33.9, 151.2], color: 0xf472b6 },
+    { start: [39, 35], end: [-23.5, -46.6], color: 0x4ade80 },
+    { start: [39, 35], end: [55.7, 37.6], color: 0xfbbf24 },
   ];
 
-  const planes = [];
-
-  routesData.forEach(route => {
-    // Route Line
-    const startVec = latLongToVector3(route.start[0], route.start[1], R);
-    const endVec = latLongToVector3(route.end[0], route.end[1], R);
-    
-    const midPoint = startVec.clone().lerp(endVec, 0.5);
-    midPoint.normalize().multiplyScalar(R * 1.3); // Arc height
-    
-    const curve = new THREE.QuadraticBezierCurve3(startVec, midPoint, endVec);
-    const points = curve.getPoints(50);
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const material = new THREE.LineBasicMaterial({ color: route.color, transparent: true, opacity: 0.3 });
-    const splineObject = new THREE.Line(geometry, material);
+  var planes = [];
+  routesData.forEach(function(route) {
+    var startVec = latLongToVector3(route.start[0], route.start[1], R);
+    var endVec = latLongToVector3(route.end[0], route.end[1], R);
+    var midPoint = startVec.clone().lerp(endVec, 0.5);
+    midPoint.normalize().multiplyScalar(R * 1.35);
+    var curve = new THREE.QuadraticBezierCurve3(startVec, midPoint, endVec);
+    var points = curve.getPoints(60);
+    var geometry = new THREE.BufferGeometry().setFromPoints(points);
+    var material = new THREE.LineBasicMaterial({ color: route.color, transparent: true, opacity: 0.4 });
+    var splineObject = new THREE.Line(geometry, material);
     globeGroup.add(splineObject);
 
-    // Plane Object
-    const planeGeo = new THREE.ConeGeometry(0.02, 0.06, 4);
+    var planeGeo = new THREE.ConeGeometry(0.022, 0.07, 4);
     planeGeo.rotateX(Math.PI / 2);
-    const planeMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const planeMesh = new THREE.Mesh(planeGeo, planeMat);
+    var planeMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    var planeMesh = new THREE.Mesh(planeGeo, planeMat);
     globeGroup.add(planeMesh);
-    
     planes.push({ mesh: planeMesh, curve: curve, progress: Math.random() });
   });
 
-  // Animation Loop
-  let reqId;
-  function animate() {
-    reqId = requestAnimationFrame(animate);
-    
-    // Rotate Globe
-    globeGroup.rotation.y += 0.001;
-    clouds.rotation.y += 0.0015;
+  function resize() {
+    var width = container.clientWidth;
+    var height = container.clientHeight;
+    if (width === 0 || height === 0) return;
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  }
 
-    // Move planes
-    planes.forEach(p => {
-      p.progress += 0.002;
+  var resizeObserver = new ResizeObserver(function() { resize(); });
+  resizeObserver.observe(container);
+  resize();
+
+  var clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    var dt = Math.min(clock.getDelta(), 0.1);
+    globeGroup.rotation.y += 0.0008;
+    clouds.rotation.y += 0.0012;
+    atmos.material.uniforms.uTime.value += dt;
+
+    planes.forEach(function(p) {
+      p.progress += 0.0015;
       if (p.progress > 1) p.progress = 0;
-      
-      const pos = p.curve.getPoint(p.progress);
+      var pos = p.curve.getPoint(p.progress);
       p.mesh.position.copy(pos);
-      
-      const nextPos = p.curve.getPoint(Math.min(p.progress + 0.01, 1.0));
+      var nextPos = p.curve.getPoint(Math.min(p.progress + 0.015, 1.0));
       p.mesh.lookAt(nextPos);
     });
 
     renderer.render(scene, camera);
   }
-
-  // Setup Resize Observer instead of window resize for exact container fitting
-  const resizeObserver = new ResizeObserver(() => { resize(); });
-  resizeObserver.observe(container);
-  
-  resize();
   animate();
-
 })();
 
-// Initialize language setting on load to ensure document.documentElement.lang is correct natively
+// Initialize language
 setLang('en');
 </script>
 </body>
